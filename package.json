@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "author": "Torsten Dreyer <torsten@t3r.de>",
   "license": "GPL-3.0-or-later",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/OpenAttitude/SenecaII-panel-flightgear.git"
+  },
   "private": true,
   "scripts": {
     "dev": "vite",
@@ -33,6 +37,7 @@
     "@vueuse/core": "^14.2.1",
     "bootstrap": "^5.3.8",
     "bootstrap-icons": "^1.13.1",
+    "github-fork-ribbon-css": "^0.2.3",
     "leaflet": "^1.9.4",
     "pinia": "^3.0.4",
     "vue": "^3.5.30",

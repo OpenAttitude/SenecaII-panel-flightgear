@@ -6,7 +6,10 @@
         <RouterLink :to="{ name: 'panel' }">Panel (home)</RouterLink>
       </li>
       <li class="list-group-item">
-        <RouterLink :to="{ name: 'testbeds' }">Package testbeds (Vite)</RouterLink>
+        <RouterLink :to="{ name: 'settings', query: { ...route.query } }">Panel settings</RouterLink>
+      </li>
+      <li class="list-group-item">
+        <RouterLink :to="{ name: 'testbeds', query: { ...route.query } }">Package testbeds (Vite)</RouterLink>
       </li>
     </ul>
     <h2 class="h5 mb-2">Instruments (fullscreen)</h2>

@@ -21,6 +21,7 @@ import { EngineInstruments } from '@openattitude/steam-engine-senecaii';
 import { GenericGps as GPS } from '@openattitude/other-gps-generic';
 import { FlapIndicator as Flap } from '@openattitude/steam-flapindicator-senecaii';
 import OffSpinner from '@/components/OffSpinner.vue';
+import GitHubForkRibbon from '@/components/GitHubForkRibbon.vue';
 
 const props = defineProps({
   fgfs: String,
@@ -118,7 +119,15 @@ const {
 </script>
 
 <template>
-  <RouterLink class="ms-2" :to="{ name: 'testbeds' }">testbeds</RouterLink>
+  <GitHubForkRibbon />
+  <RouterLink
+    class="panel-settings-link ms-2"
+    :to="{ name: 'settings', query: { ...route.query } }"
+    aria-label="Panel settings"
+    title="Panel settings"
+  >
+    <i class="bi bi-gear-fill" aria-hidden="true"></i>
+  </RouterLink>
 
   <Clock
     id="clock"
@@ -315,6 +324,30 @@ const {
 </template>
 
 <style>
+.panel-settings-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.2rem;
+  color: var(--bs-light);
+  font-size: 1.35rem;
+  line-height: 1;
+  text-decoration: none;
+  opacity: 0.82;
+  vertical-align: middle;
+  border-radius: 0.35rem;
+  transition:
+    color 0.15s ease,
+    opacity 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.panel-settings-link:hover {
+  color: #fff;
+  opacity: 1;
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
 .instrument-openable {
   cursor: pointer;
 }

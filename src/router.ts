@@ -47,6 +47,12 @@ const routes: RouteRecordRaw[] = [
     name: 'testbeds',
     component: () => import('./views/TestbedHubView.vue'),
   },
+  {
+    path: '/settings',
+    name: 'settings',
+    component: () => import('./views/PanelSettingsView.vue'),
+    props: panelProps,
+  },
 ];
 
 const router = createRouter({

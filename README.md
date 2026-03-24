@@ -78,6 +78,8 @@ Live instruments use **`useFgPanelPropertyBindings`** (`src/composables/useFgPan
 
 ### Query parameters (shared across routes)
 
+Use the **panel settings** screen (**`/settings`**, gear icon on the main dashboard) to edit these without hand-editing the URL.
+
 | Query | Meaning |
 |--------|---------|
 | **`fgfs`** | FlightGear PropertyListener host passed to `@openattitude/core` (hostname or `host:port`, **no** `ws://` prefix). Example: `?fgfs=127.0.0.1:8080`. Omit or empty to avoid connecting (instruments stay at default/off values). |
@@ -108,6 +110,7 @@ For protocol and store usage details, see the **`@openattitude/core`** package o
 | `/instrument/:instrumentId` | `instrument` | Single instrument; `instrumentId` must be one of the IDs in `src/instrumentIds.ts`. |
 | `/ClockView` | — | Redirects to `/instrument/clock` (legacy path). |
 | `/test` | `test` | Developer index: links to routes and fullscreen list. |
+| `/settings` | `settings` | Panel options (`fgfs`, `dpi`, `gradient`) and link to the instrument testbed hub. |
 | `/testbeds` | `testbeds` | Testbed hub: links to per-package Vite dev servers (see below). |
 
 ### `instrumentId` values
@@ -203,6 +206,18 @@ VITE_TESTBED_ORIGIN=http://192.168.1.10
 ```
 
 The hub uses that origin when building `http://host:port/` links for each testbed. If unset, it uses the **current page’s hostname** with each package’s fixed port (see `src/testbedManifest.ts`).
+
+### “Fork me on GitHub” ribbon
+
+The main panel view includes a **top-left** fixed ribbon using **[github-fork-ribbon-css](https://simonwhitaker.github.io/github-fork-ribbon-css/)** ([Simon Whitaker](https://github.com/simonwhitaker/github-fork-ribbon-css), MIT) via the **`github-fork-ribbon-css`** npm package, with **green** ribbon and **white** label text.
+
+Override the repository URL (e.g. in **`.env.production`** or CI) with:
+
+```bash
+VITE_GITHUB_REPO_URL=https://github.com/your-org/your-repo
+```
+
+If unset, it defaults to **`https://github.com/OpenAttitude/SenecaII-panel-flightgear`**—change the default in **`src/components/GitHubForkRibbon.vue`** if your canonical repo differs.
 
 ---
 

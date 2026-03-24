@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { computed } from 'vue';
+import { useRoute } from 'vue-router';
 import { TESTBED_ENTRIES_SORTED } from '@/testbedManifest';
+
+const route = useRoute();
 
 /**
  * Base URL for testbed dev servers (same host as this app, or override via env).
@@ -27,9 +30,13 @@ const showHostHint = import.meta.env.VITE_TESTBED_ORIGIN == null || String(impor
 <template>
   <div class="container py-4 testbed-hub text-body">
     <nav class="mb-3">
-      <RouterLink :to="{ name: 'panel' }">Panel</RouterLink>
+      <RouterLink :to="{ name: 'panel', query: { ...route.query } }">Panel</RouterLink>
       ·
-      <RouterLink :to="{ name: 'test' }">In-app routes</RouterLink>
+      <RouterLink :to="{ name: 'settings', query: { ...route.query } }">Settings</RouterLink>
+      ·
+      <span class="text-secondary">Testbeds</span>
+      ·
+      <RouterLink :to="{ name: 'test', query: { ...route.query } }">In-app routes</RouterLink>
     </nav>
 
     <h1 class="h3 mb-2">Instrument testbeds</h1>
