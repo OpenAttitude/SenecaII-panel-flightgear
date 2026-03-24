@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <title>FG Panel - airspeed indicator</title>
+  <!-- Face -->
+  <circle cx="32" cy="32" r="30" fill="#141414" stroke="#2a2a2a" stroke-width="1.5"/>
+  <!-- Green band (lower arc, stylized like ASI safe range) -->
+  <path
+    d="M 14 44 A 22 22 0 0 1 10 32 A 22 22 0 0 1 14 20"
+    fill="none"
+    stroke="#4bc70e"
+    stroke-width="5"
+    stroke-linecap="round"
+  />
+  <!-- Yellow band -->
+  <path
+    d="M 50 20 A 22 22 0 0 1 54 32 A 22 22 0 0 1 50 44"
+    fill="none"
+    stroke="#daf01e"
+    stroke-width="5"
+    stroke-linecap="round"
+  />
+  <!-- Major ticks -->
+  <g stroke="#e8e8e8" stroke-width="1.6" stroke-linecap="round">
+    <line x1="32" y1="6" x2="32" y2="11"/>
+    <line x1="55" y1="32" x2="50" y2="32"/>
+    <line x1="32" y1="58" x2="32" y2="53"/>
+    <line x1="9" y1="32" x2="14" y2="32"/>
+  </g>
+  <!-- Needle (~100 kt style position) -->
+  <path
+    d="M 32 32 L 32 12"
+    stroke="#f5f5f5"
+    stroke-width="2.4"
+    stroke-linecap="round"
+    transform="rotate(42 32 32)"
+  />
+  <circle cx="32" cy="32" r="4" fill="#c8c8c8" stroke="#252525" stroke-width="1"/>
+</svg>
