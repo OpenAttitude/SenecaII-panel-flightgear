@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
 import type { InstrumentId } from '@/instrumentIds';
@@ -22,6 +23,7 @@ import { GenericGps as GPS } from '@openattitude/other-gps-generic';
 import { FlapIndicator as Flap } from '@openattitude/steam-flapindicator-senecaii';
 import OffSpinner from '@/components/OffSpinner.vue';
 import GitHubForkRibbon from '@/components/GitHubForkRibbon.vue';
+import { fgfsHostFromQuery } from '@/utils/fgfsFromRoute';
 
 const props = defineProps({
   fgfs: String,
@@ -113,13 +115,19 @@ const {
   engRightOilPressurePsi,
   engRightFuelGalUs,
 } = useFgPanelPropertyBindings({
-  fgfs: () => props.fgfs,
+  fgfs: () => fgfsHostFromQuery(route.query.fgfs) || (props.fgfs?.trim() ?? ''),
   dpi: () => props.dpi,
 });
+
+/** Ribbon for demo/static use only; hide when an FG PropertyListener host is configured (query or live store). */
+const showForkRibbon = computed(
+  () =>
+    !fgfsHostFromQuery(route.query.fgfs) && !flightGearPanelPropertiesStore.host.trim(),
+);
 </script>
 
 <template>
-  <GitHubForkRibbon />
+  <GitHubForkRibbon v-if="showForkRibbon" />
   <RouterLink
     class="panel-settings-link ms-2"
     :to="{ name: 'settings', query: { ...route.query } }"

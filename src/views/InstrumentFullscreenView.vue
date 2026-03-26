@@ -24,6 +24,7 @@ import { EngineInstruments } from '@openattitude/steam-engine-senecaii';
 import { GenericGps as GPS } from '@openattitude/other-gps-generic';
 import { FlapIndicator as Flap } from '@openattitude/steam-flapindicator-senecaii';
 import OffSpinner from '@/components/OffSpinner.vue';
+import { fgfsHostFromQuery } from '@/utils/fgfsFromRoute';
 
 const props = defineProps<{
   instrumentId: InstrumentId;
@@ -109,7 +110,7 @@ const {
   engRightOilPressurePsi,
   engRightFuelGalUs,
 } = useFgPanelPropertyBindings({
-  fgfs: () => props.fgfs,
+  fgfs: () => fgfsHostFromQuery(route.query.fgfs) || (props.fgfs?.trim() ?? ''),
   dpi: () => props.dpi,
 });
 

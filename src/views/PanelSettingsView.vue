@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import { fgfsHostFromQuery } from '@/utils/fgfsFromRoute';
 
 const props = defineProps<{
   fgfs?: string;
@@ -16,9 +17,9 @@ const dpiInput = ref('');
 const gradientEnabled = ref(false);
 
 watch(
-  () => [props.fgfs, props.dpi, props.gradient] as const,
+  () => [props.fgfs, props.dpi, props.gradient, route.query.fgfs] as const,
   () => {
-    fgfsInput.value = props.fgfs?.trim() ?? '';
+    fgfsInput.value = fgfsHostFromQuery(route.query.fgfs) || props.fgfs?.trim() || '';
     dpiInput.value = props.dpi?.trim() ?? '';
     gradientEnabled.value = props.gradient === 'true';
   },
