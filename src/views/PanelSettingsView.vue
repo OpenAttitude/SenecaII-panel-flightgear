@@ -2,6 +2,7 @@
 import { computed, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { fgfsHostFromQuery } from '@/utils/fgfsFromRoute';
+import { version as panelVersion } from '../../package.json';
 
 const props = defineProps<{
   fgfs?: string;
@@ -62,9 +63,13 @@ function clearOptions() {
       <i class="bi bi-gear-fill me-2" aria-hidden="true"></i>
       Panel settings
     </h1>
-    <p class="text-secondary small mb-4">
+    <p class="text-secondary small mb-2">
       These options are stored in the URL query string so you can bookmark or share a configured panel. FlightGear
       must expose the generic PropertyListener WebSocket on the host you set.
+    </p>
+    <p class="text-secondary small mb-4">
+      <span class="text-muted">Version</span>
+      <code class="text-info ms-1">{{ panelVersion }}</code>
     </p>
 
     <form class="card bg-dark border-secondary mb-4" @submit.prevent="applyAndReturnToPanel">
