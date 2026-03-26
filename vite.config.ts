@@ -50,6 +50,6 @@ export default defineConfig({
     },
     target: 'esnext',
     reportCompressedSize: true,
-    chunkSizeWarningLimit: 1000,
+    chunkSizeWarningLimit: 2000,
   },
 })
