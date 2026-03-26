@@ -18,6 +18,7 @@ export const TESTBED_ENTRIES: TestbedEntry[] = [
   { title: 'Engine RPM', port: 5184, packageName: '@openattitude/steam-enginerpm-senecaii' },
   { title: 'Flap / trim', port: 5185, packageName: '@openattitude/steam-flapindicator-senecaii' },
   { title: 'Fuel flow', port: 5181, packageName: '@openattitude/steam-fuelflow-senecaii' },
+  { title: 'GI-275 (generic)', port: 5191, packageName: '@openattitude/glass-gi275-generic' },
   { title: 'GPS (moving map)', port: 5190, packageName: '@openattitude/other-gps-generic' },
   { title: 'Gyro pressure', port: 5182, packageName: '@openattitude/steam-gyropressure-senecaii' },
   { title: 'Ki209 nav indicator', port: 5188, packageName: '@openattitude/steam-ki209-generic' },
