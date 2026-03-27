@@ -1,0 +1,61 @@
+# https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: "/"
+    schedule:
+      interval: monthly
+    ignore:
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-major"
+    groups:
+      openattitude-instruments:
+        patterns:
+          - "@openattitude/*"
+      vue-ecosystem:
+        patterns:
+          - "vue"
+          - "vue-router"
+          - "@vue/*"
+          - "pinia"
+          - "@vueuse/*"
+      bootstrap-and-assets:
+        patterns:
+          - "bootstrap"
+          - "bootstrap-icons"
+          - "github-fork-ribbon-css"
+      leaflet:
+        patterns:
+          - "leaflet"
+      vite-and-build:
+        patterns:
+          - "vite"
+          - "@vitejs/*"
+          - "terser"
+          - "vue-tsc"
+      typescript-types:
+        patterns:
+          - "typescript"
+          - "@types/*"
+      eslint:
+        patterns:
+          - "eslint*"
+          - "@eslint/*"
+          - "typescript-eslint"
+          - "@typescript-eslint/*"
+          - "globals"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: monthly
+    ignore:
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-major"
+    groups:
+      actions:
+        patterns:
+          - "*"
