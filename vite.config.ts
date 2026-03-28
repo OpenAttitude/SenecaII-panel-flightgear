@@ -36,7 +36,6 @@ export default defineConfig({
           if (id.includes('node_modules')) {
             return 'vendor'
           }
-          return 'app'
         },
         chunkFileNames: 'js/[name].min.js',
         entryFileNames: 'js/[name].min.js',

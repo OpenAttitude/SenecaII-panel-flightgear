@@ -1,10 +1,12 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
-import { isInstrumentId, type InstrumentId } from '@/instrumentIds';
+import { isInstrumentId, isSixpackInstrumentId, type InstrumentId } from '@/instrumentIds';
+import { panelLayoutFromQuery } from '@/utils/panelLayout';
 
 const panelProps = (route: { query: Record<string, unknown> }) => ({
   fgfs: route.query.fgfs as string | undefined,
   dpi: route.query.dpi as string | undefined,
   gradient: route.query.gradient as string | undefined,
+  layout: route.query.layout as string | undefined,
 });
 
 const instrumentProps = (route: { params: Record<string, unknown>; query: Record<string, unknown> }) => ({
@@ -12,6 +14,7 @@ const instrumentProps = (route: { params: Record<string, unknown>; query: Record
   fgfs: route.query.fgfs as string | undefined,
   dpi: route.query.dpi as string | undefined,
   gradient: route.query.gradient as string | undefined,
+  layout: route.query.layout as string | undefined,
 });
 
 const routes: RouteRecordRaw[] = [
@@ -30,6 +33,10 @@ const routes: RouteRecordRaw[] = [
       const raw = to.params.instrumentId;
       const id = Array.isArray(raw) ? raw[0] : raw;
       if (!isInstrumentId(id)) {
+        next({ name: 'panel', query: to.query });
+        return;
+      }
+      if (panelLayoutFromQuery(to.query) === 'sixpack' && !isSixpackInstrumentId(id)) {
         next({ name: 'panel', query: to.query });
         return;
       }

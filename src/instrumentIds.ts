@@ -1,4 +1,16 @@
-/** URL segment for `/instrument/:instrumentId` — matches each instrument on the main panel. */
+/** Primary flight sixpack only — used when `layout=sixpack`. */
+export const SIXPACK_INSTRUMENT_IDS = [
+  'asi',
+  'attitude',
+  'altimeter',
+  'turn-coordinator',
+  'hsi',
+  'vsi',
+] as const;
+
+export type SixpackInstrumentId = (typeof SIXPACK_INSTRUMENT_IDS)[number];
+
+/** URL segment for `/instrument/:instrumentId` — matches each instrument on the full panel. */
 export const INSTRUMENT_IDS = [
   'clock',
   'asi',
@@ -27,6 +39,11 @@ export type InstrumentId = (typeof INSTRUMENT_IDS)[number];
 export function isInstrumentId(id: string | undefined): id is InstrumentId {
   if (id == null) return false;
   return (INSTRUMENT_IDS as readonly string[]).includes(id);
+}
+
+export function isSixpackInstrumentId(id: string | undefined): id is SixpackInstrumentId {
+  if (id == null) return false;
+  return (SIXPACK_INSTRUMENT_IDS as readonly string[]).includes(id);
 }
 
 export const WIDE_INSTRUMENT_IDS: ReadonlySet<InstrumentId> = new Set(['engine-left', 'engine-right']);

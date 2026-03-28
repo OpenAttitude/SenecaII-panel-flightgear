@@ -2,12 +2,14 @@
 import { computed, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { fgfsHostFromQuery } from '@/utils/fgfsFromRoute';
+import { panelLayoutFromQuery, type PanelLayout } from '@/utils/panelLayout';
 import { version as panelVersion } from '../../package.json';
 
 const props = defineProps<{
   fgfs?: string;
   dpi?: string;
   gradient?: string;
+  layout?: string;
 }>();
 
 const route = useRoute();
@@ -16,13 +18,15 @@ const router = useRouter();
 const fgfsInput = ref('');
 const dpiInput = ref('');
 const gradientEnabled = ref(false);
+const layoutChoice = ref<PanelLayout>('full');
 
 watch(
-  () => [props.fgfs, props.dpi, props.gradient, route.query.fgfs] as const,
+  () => [props.fgfs, props.dpi, props.gradient, props.layout, route.query.fgfs, route.query.layout] as const,
   () => {
     fgfsInput.value = fgfsHostFromQuery(route.query.fgfs) || props.fgfs?.trim() || '';
     dpiInput.value = props.dpi?.trim() ?? '';
     gradientEnabled.value = props.gradient === 'true';
+    layoutChoice.value = panelLayoutFromQuery(route.query);
   },
   { immediate: true },
 );
@@ -33,6 +37,7 @@ const pendingQuery = computed(() => {
   if (fgfsInput.value.trim()) q.fgfs = fgfsInput.value.trim();
   if (dpiInput.value.trim()) q.dpi = dpiInput.value.trim();
   if (gradientEnabled.value) q.gradient = 'true';
+  if (layoutChoice.value === 'sixpack') q.layout = 'sixpack';
   return q;
 });
 
@@ -44,6 +49,7 @@ function clearOptions() {
   fgfsInput.value = '';
   dpiInput.value = '';
   gradientEnabled.value = false;
+  layoutChoice.value = 'full';
 }
 </script>
 
@@ -104,6 +110,22 @@ function clearOptions() {
           <div class="form-text text-secondary">
             Sets <code class="text-info">--mydpi</code> for gauge cutout sizing when the value is a number
             <strong>&gt; 10</strong> (baseline in the app is 96).
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="settings-layout" class="form-label">Panel layout</label>
+          <select
+            id="settings-layout"
+            v-model="layoutChoice"
+            class="form-select bg-black text-light border-secondary"
+          >
+            <option value="full">Full Seneca II panel</option>
+            <option value="sixpack">Primary flight sixpack only</option>
+          </select>
+          <div class="form-text text-secondary">
+            Sixpack uses <code class="text-info">layout=sixpack</code> and subscribes only to those six instruments’
+            FlightGear properties.
           </div>
         </div>
 

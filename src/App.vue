@@ -45,6 +45,7 @@ body,
 
 .gauge {
   border-radius: 50%;
+  flex-shrink: 0;
 }
 
 .gradient-border {
